@@ -1,92 +1,86 @@
-Overview
-This project demonstrates a comprehensive data analysis workflow using SAS Studio. The primary objective is to import, clean, and transform clinical demographic data from an Excel file, calculate summary statistics for continuous and categorical variables, and generate a professional report summarizing key baseline characteristics by treatment group. This project showcases the power and flexibility of SAS in handling real-world data analysis tasks.
+# SAS Demographics Data Analysis & Reporting Project :bar_chart:
 
-Project Structure
+## Overview :sparkles:
+This project demonstrates a comprehensive data analysis workflow using **SAS Studio**. The primary objective is to import, clean, and transform clinical demographic data from an Excel file, calculate summary statistics for continuous and categorical variables, and generate a professional report summarizing key baseline characteristics by treatment group. This project showcases the power and flexibility of SAS in handling real-world data analysis tasks.
 
-Edit
-├── M3_T3_V1_-_demog.xls       # Excel file containing the raw demographic data
-├── sas_project.sas            # SAS code file for data import, transformation, and reporting
-└── README.md                  # Project documentation file
 
-Data Source
-The data is sourced from an Excel file (M3_T3_V1_-_demog.xls) containing demographic information such as date components (month, day, year), gender, and race for each patient. The data is located in the /home/u64143416 directory of the SAS Studio environment.
+## Data Source :open_file_folder:
+The data is sourced from an Excel file (`M3_T3_V1_-_demog.xls`) containing demographic information such as date components (month, day, year), gender, and race for each patient. The data is located in the `/home/u64143416` directory of the SAS Studio environment.
 
-Project Workflow
-1. Data Import & Setup
-Dropping Existing Table:
-The project starts by ensuring that any pre-existing table (WORK.Demog) is dropped to maintain a clean workspace.
+## Project Workflow :rocket:
 
-Importing the Excel File:
-Using PROC IMPORT with the XLS engine, the Excel file is read, and the data from the "Demog" sheet is imported into the SAS WORK.Demog dataset. This step also includes reading the column names directly from the file.
+### 1. Data Import & Setup
+- **Dropping Existing Table:**  
+  The project starts by ensuring that any pre-existing table (`WORK.Demog`) is dropped to maintain a clean workspace.
+- **Importing the Excel File:**  
+  Using `PROC IMPORT` with the XLS engine, the Excel file is read, and the data from the "Demog" sheet is imported into the SAS `WORK.Demog` dataset. This step also includes reading the column names directly from the file.
+- **Data Display:**  
+  The `%web_open_table` macro is used to open the imported table for a quick review within SAS Studio.
 
-Data Display:
-The %web_open_table macro is used to open the imported table for a quick review within SAS Studio.
+### 2. Data Transformation
+- **Date of Birth & Age Calculation:**  
+  - **Concatenation:** Combines the month, day, and year fields into a valid date string.  
+  - **Conversion:** Transforms the date string into a SAS date format.  
+  - **Age Calculation:** Computes the age of each patient by subtracting the date of birth from the diagnosis date (`diagdt`) and dividing by 365.
+- **Treatment Group Assignment:**  
+  A new variable `trt` is created for grouping the patients for subsequent analyses.
 
-2. Data Transformation
-Date of Birth & Age Calculation:
-Concatenation: Combines the month, day, and year fields into a valid date string.
-Conversion: Transforms the date string into a SAS date format.
-Age Calculation: Computes the age of each patient by subtracting the date of birth from the diagnosis date (diagdt) and dividing by 365.
-Treatment Group Assignment:
-A new variable trt is created for grouping the patients for subsequent analyses.
-3. Statistical Analysis
-Continuous Variable (Age)
-Summary Statistics Calculation:
-The PROC MEANS procedure computes statistical parameters (N, mean, standard deviation, minimum, and maximum) for the age variable by treatment group.
+### 3. Statistical Analysis
 
-Data Formatting:
-The results are reformatted, and appropriate ordering is assigned to facilitate seamless merging with other statistics.
+#### Continuous Variable (Age)
+- **Summary Statistics Calculation:**  
+  The `PROC MEANS` procedure computes statistical parameters (N, mean, standard deviation, minimum, and maximum) for the age variable by treatment group.
+- **Data Formatting:**  
+  The results are reformatted, and appropriate ordering is assigned to facilitate seamless merging with other statistics.
 
-Categorical Variables (Gender and Race)
-Gender Analysis:
-Custom Formats: The gender variable is recoded using a user-defined format to display as 'Male' or 'Female'.
-Frequency Analysis: The PROC FREQ procedure calculates the count and percentage of each gender category by treatment group.
-Race Analysis:
-Custom Formats: Similarly, the race variable is recoded into categories (White, Black, Hispanic, Asian, Other) using a custom format.
-Frequency Analysis: Frequencies and percentages for race are computed by treatment group.
-4. Report Generation
-Data Consolidation:
-The age, gender, and race statistics are combined into a single dataset. Sorting and transposition (using PROC TRANSPOSE) align the statistics for each treatment group side by side.
+#### Categorical Variables (Gender and Race)
+- **Gender Analysis:**  
+  - **Custom Formats:** The gender variable is recoded using a user-defined format to display as 'Male' or 'Female'.  
+  - **Frequency Analysis:** The `PROC FREQ` procedure calculates the count and percentage of each gender category by treatment group.
+- **Race Analysis:**  
+  - **Custom Formats:** Similarly, the race variable is recoded into categories (White, Black, Hispanic, Asian, Other) using a custom format.  
+  - **Frequency Analysis:** Frequencies and percentages for race are computed by treatment group.
 
-Final Report Formatting:
-The PROC REPORT procedure is used to create a formatted table with:
+### 4. Report Generation
+- **Data Consolidation:**  
+  The age, gender, and race statistics are combined into a single dataset. Sorting and transposition (using `PROC TRANSPOSE`) align the statistics for each treatment group side by side.
+- **Final Report Formatting:**  
+  The `PROC REPORT` procedure is used to create a formatted table with:
+  - Detailed row labels (e.g., "Age (years)", "Gender", "Race")
+  - Dynamic column headers showing the treatment groups along with their population counts (obtained via a `PROC SQL` query).
+  - A clear title and footnote explaining the methodology and percentage calculations.
 
-Detailed row labels (e.g., "Age (years)", "Gender", "Race")
-Dynamic column headers showing the treatment groups along with their population counts (obtained via a PROC SQL query).
-A clear title and footnote explaining the methodology and percentage calculations.
-How to Run the Project
-Setup SAS Studio Environment:
-Ensure that you have access to SAS Studio and that the Excel file M3_T3_V1_-_demog.xls is located in the specified directory (/home/u64143416).
+## How to Run the Project :computer:
+1. **Setup SAS Studio Environment:**  
+   Ensure that you have access to SAS Studio and that the Excel file `M3_T3_V1_-_demog.xls` is located in the specified directory (`/home/u64143416`).
+2. **Execute the SAS Code:**  
+   Open the `sas_project.sas` file in SAS Studio and run the code. The program will:
+   - Import the data from the Excel file.
+   - Perform necessary data transformations.
+   - Compute summary statistics for age, gender, and race.
+   - Generate the final report.
+3. **Review the Report:**  
+   The output table, generated by `PROC REPORT`, will display the demographic and baseline characteristics by treatment group. Use the SAS Studio output window to view the results.
 
-Execute the SAS Code:
-Open the sas_project.sas file in SAS Studio and run the code. The program will:
+## Key Takeaways :key:
+- **Automation & Reproducibility:**  
+  Automates the data import, transformation, and reporting process, ensuring consistent and reproducible analyses.
+- **Comprehensive Analysis:**  
+  Integrates multiple SAS procedures (e.g., `PROC IMPORT`, `PROC MEANS`, `PROC FREQ`, `PROC TRANSPOSE`, `PROC REPORT`) to deliver a full-cycle data analysis workflow.
+- **Dynamic Reporting:**  
+  Utilizes dynamic SQL queries to embed population counts in the final report, enhancing the interpretability of the results.
 
-Import the data from the Excel file.
-Perform necessary data transformations.
-Compute summary statistics for age, gender, and race.
-Generate the final report.
-Review the Report:
-The output table, generated by PROC REPORT, will display the demographic and baseline characteristics by treatment group. Use the SAS Studio output window to view the results.
+## Future Enhancements :sparkles:
+- **Expanded Variable Analysis:**  
+  Incorporate additional clinical or demographic variables for a more detailed analysis.
+- **Interactive Visualizations:**  
+  Implement graphical representations (e.g., using `PROC SGPLOT`) to visually interpret the data.
+- **User-Defined Parameters:**  
+  Allow customization of the analysis parameters to adapt to different datasets or study requirements.
 
-Key Takeaways
-Automation & Reproducibility:
-Automates the data import, transformation, and reporting process, ensuring consistent and reproducible analyses.
+## License :memo:
+This project is licensed under the [MIT License](LICENSE).
 
-Comprehensive Analysis:
-Integrates multiple SAS procedures (e.g., PROC IMPORT, PROC MEANS, PROC FREQ, PROC TRANSPOSE, PROC REPORT) to deliver a full-cycle data analysis workflow.
+## Contact :email:
+For further questions or contributions, please contact **Sanket Bhadange** at **sanketnb2404@gmail.com**.
 
-Dynamic Reporting:
-Utilizes dynamic SQL queries to embed population counts in the final report, enhancing the interpretability of the results.
-
-Future Enhancements
-Expanded Variable Analysis:
-Incorporate additional clinical or demographic variables for a more detailed analysis.
-Interactive Visualizations:
-Implement graphical representations (e.g., using PROC SGPLOT) to visually interpret the data.
-User-Defined Parameters:
-Allow customization of the analysis parameters to adapt to different datasets or study requirements.
-License
-This project is licensed under the MIT License.
-
-Contact
-For further questions or contributions, please contact [Your Name] at [your.email@example.com].
