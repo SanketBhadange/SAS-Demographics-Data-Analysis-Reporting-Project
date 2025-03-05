@@ -78,8 +78,6 @@ The data is sourced from an Excel file (`M3_T3_V1_-_demog.xls`) containing demog
 - **User-Defined Parameters:**  
   Allow customization of the analysis parameters to adapt to different datasets or study requirements.
 
-## License :memo:
-This project is licensed under the [MIT License](LICENSE).
 
 ## Contact :email:
 For further questions or contributions, please contact **Sanket Bhadange** at **sanketnb2404@gmail.com**.
